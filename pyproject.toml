@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "apptk"
-version = "1.0""
+version = "1.0"
 description = ""
 authors = ["Brandy Sandrowicz <brandy@sandrowicz.org>"]
 
@@ -9,7 +9,7 @@ authors = ["Brandy Sandrowicz <brandy@sandrowicz.org>"]
 # url = "https://devpi.example.com/example/example/+simple/"
 
 [tool.poetry.dependencies]
-python = "~3.9.10"
+python = "^3.9.10"
 
 
 [tool.poetry.dev-dependencies]
