@@ -3,6 +3,8 @@ name = "apptk"
 version = "1.0"
 description = ""
 authors = ["Brandy Sandrowicz <brandy@sandrowicz.org>"]
+reposotory = "https://github.com/bsandrow/python-apptk/"
+homepage = "https://github.com/bsandrow/python-apptk/"
 
 # [[tool.poetry.source]]
 # name = "private pypi"
