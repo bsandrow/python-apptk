@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "apptk"
-version = "1.1"
+version = "1.2"
 description = ""
 authors = ["Brandy Sandrowicz <brandy@sandrowicz.org>"]
 repository = "https://github.com/bsandrow/python-apptk/"
