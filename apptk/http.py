@@ -7,6 +7,11 @@ try:
 except ImportError:
     raise RuntimeError("Library `requests` is required to use `apptk.http`.")
 
+try:
+    import cloudscraper
+except ImportError:
+    cloudscraper = None
+
 # This default headers are "hard-coded" and will always apply to Client instances. They've been defined at this
 # top-level to indicate that there is no intention that they should be over-ridden
 DEFAULT_HEADERS = {
@@ -43,10 +48,8 @@ class HttpClient:
 
     def __init__(self, headers: dict = None, use_cloudscraper: bool = False) -> None:
         if use_cloudscraper:
-            try:
-                import cloudscraper
-            except ImportError:
-                raise Exception("Option `use_cloudscraper` requires the `cloudscraper` library to be installed.")
+            if cloudscraper is None:
+                raise RuntimeError("Option `use_cloudscraper` requires the `cloudscraper` library to be installed.")
             self._session = cloudscraper.create_scraper(
                 browser={"browser": "chrome", "platform": "linux", "mobile": False}, ecdhCurve="secp384r1"
             )
