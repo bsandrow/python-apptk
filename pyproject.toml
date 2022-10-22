@@ -5,6 +5,7 @@ description = ""
 authors = ["Brandy Sandrowicz <brandy@sandrowicz.org>"]
 repository = "https://github.com/bsandrow/python-apptk/"
 homepage = "https://github.com/bsandrow/python-apptk/"
+license = "BSD-3-Clause"
 
 # [[tool.poetry.source]]
 # name = "private pypi"
