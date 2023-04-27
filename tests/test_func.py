@@ -1,4 +1,7 @@
-from unittest import TestCase
+import functools
+from importlib import reload
+import sys
+from unittest import TestCase, mock
 
 import apptk.func
 
@@ -8,7 +11,7 @@ class CachedPropertyTestCase(TestCase):
         class TestClass:
             call_count = 0
 
-            @apptk.func.cached_property
+            @apptk.func._cached_property
             def test_property(self):
                 self.call_count += 1
                 return "abc"
@@ -32,3 +35,7 @@ class CachedPropertyTestCase(TestCase):
 
         self.assertEqual(instance.test_property, "abc")
         self.assertEqual(instance.call_count, 2, "Should have been called a second time to regen and cache the value.")
+
+    def test_imports_from_stdlib(self):
+        self.assertIs(apptk.func.cached_property, functools.cached_property)
+        self.assertEqual(apptk.func.cached_property.__module__, "functools")

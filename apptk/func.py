@@ -1,5 +1,11 @@
+"""Function- / Functional-related utilities."""
+
+import sys
+
+__all__ = ["cached_property"]
+
 # noinspection PyPep8Naming
-class cached_property:
+class _cached_property:
     """
     A @property that caches the returned value.
 
@@ -31,3 +37,14 @@ class cached_property:
             return self
         result = instance.__dict__[self.name] = self.function(instance)
         return result
+
+
+#
+# Use Python's standard cached_property if this is Python 3.8 or greater,
+# otherwise fallback on Django's cached_property. If that doesn't work (e.g.
+# Django isn't installed), use this implementation.
+#
+try:
+    from functools import cached_property
+except ImportError:
+    cached_property = _cached_property
