@@ -23,7 +23,7 @@ repos:
       - id: mixed-line-ending
         args: [--fix=lf]
       - id: check-added-large-files
-        args: [--maxkb=550]
+        args: [--maxkb=300]
       - id: name-tests-test
         exclude: '/(helpers\.py|base\.py)'
         args: [--django]
