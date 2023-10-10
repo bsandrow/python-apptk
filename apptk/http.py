@@ -1,5 +1,6 @@
 from enum import Enum
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 from typing import Union
 
 try:
@@ -85,3 +86,19 @@ class HttpClient:
                     f.write(chunk)
 
             return filename
+
+
+def fix_cookie_jar_file(orig_cookiejarfile):
+    """
+    Strip #HttpOnly from cookies since MozillaCookieJar doesn't support it.
+
+    This bug was fixed in 2020, but doesn't look like it's in Python 3.9.
+
+    Source: https://github.com/python/cpython/issues/46443#issuecomment-1093410833
+    """
+    with NamedTemporaryFile(mode="w+", delete=False) as cookiejar_fh:
+        with open(orig_cookiejarfile, "r") as orig_cookiejar_fh:
+            for line in orig_cookiejar_fh:
+                cookiejar_fh.write(line[10:] if line.startswith("#HttpOnly_") else line)
+            cookiejar_fh.seek(0)
+        yield cookiejar_fh.name
