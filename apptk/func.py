@@ -1,7 +1,5 @@
 """Function- / Functional-related utilities."""
 
-import sys
-
 __all__ = ["cached_property"]
 
 # noinspection PyPep8Naming
