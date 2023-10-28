@@ -8,7 +8,7 @@ from typing import Any, Callable, Generator, Optional, Union
 
 PackageArg = Union[ModuleType, str]
 FilterArg = Callable[[Any], bool]
-ModuleGenerator = Generator[ModuleType]
+ModuleGenerator = Generator[ModuleType, None, None]
 ImportedNamespace = dict[str, Any]
 BaseClassArg = Optional[Union[type, tuple]]
 
