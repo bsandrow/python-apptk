@@ -2,6 +2,11 @@ import datetime
 import re
 from typing import Union
 
+try:
+    from dateutil.parser import parse as dt_parse
+except ImportError:
+    dt_parse = None
+
 DatetimeType = Union[str, datetime.datetime, datetime.date, int, float]
 PatternType = Union[str, re.Pattern]
 
@@ -22,14 +27,15 @@ def to_datetime(datetime_in: DatetimeType) -> datetime.datetime:
     if isinstance(datetime_in, (int, float)):
         return datetime.datetime.utcfromtimestamp(datetime_in)
 
-    # TODO deal with optionally pulling in dateutil
-    # if isinstance(datetime_in, str):
-    #     return dt_parser.parse(datetime_in)
-
-    if isinstance(datetime_in, datetime.date) and isinstance(datetime_in, datetime.datetime):
-        return datetime.datetime(datetime_in)
+    if isinstance(datetime_in, str):
+        return dt_parse(datetime_in) if dt_parse else datetime.datetime.fromisoformat(datetime_in)
 
     if isinstance(datetime_in, datetime.datetime):
         return datetime_in
+
+    # note: order is important because datetime instances are also date
+    # instances, but date instances are not datetime instances.
+    if isinstance(datetime_in, datetime.date):
+        return datetime.datetime.combine(datetime_in, datetime.datetime.min.time())
 
     raise ValueError(f"Unknown datetime input type: {type(datetime_in)}")
